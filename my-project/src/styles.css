@@ -1,0 +1,109 @@
+.Container{
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    display: grid;
+    grid-template-columns: 5em 1fr;
+    grid-template-rows: 2em 1fr;
+    grid-template-areas:
+        "i1 i1"
+        "i2 i3";
+    text-align: center;
+}
+
+#bar{
+    grid-area: i1;
+    background-color: brown;
+}
+
+#selection{
+    grid-area: i2;
+    background-color: green;
+}
+
+#template{
+    grid-area: i3;
+    background-color: orange;
+    position: relative;
+    box-sizing: border-box;
+    /* text-align: left; */
+    padding: 2px;
+    gap: 5px;
+    display: flex; /* Agregado */
+    flex-direction: row; /* Agregado */
+}
+
+#editor{
+    /* intentar height: 100% */
+    flex: 1;
+    width: 50%;
+    padding: 1em;
+    border-radius: .5em;
+    resize:none;
+    box-sizing: border-box;
+}
+
+#preview{
+    /* intentar height: 100% */
+    flex: 1;
+    width: 50%;
+    padding: 1em;
+    border-radius: .5em;
+    resize:none;
+    box-sizing: border-box;
+}
+
+#mybutton{
+    position: relative;
+    float: right;
+
+    /* more styles */
+    background-color: #1a1a1a;
+    cursor: pointer;
+    border: none;
+    margin: 5px;
+}
+
+#modes{
+    position: relative;
+    float: right;
+
+    background-color: #1a1a1a;
+    cursor: pointer;
+    margin: 3px;
+    padding: 4px;
+    border: 1px transparent;
+    border-radius: 5px;
+    outline: none;
+}
+
+
+#myselect{
+    padding: 4px;
+    border: 1px transparent;
+    border-radius: 5px;
+    outline: none;
+    font-size: small;
+    font-weight: lighter;
+    font-family: system-ui;
+}
+
+/* toggle */
+.changesize{
+    width: 100% !important;
+}
+
+
+/* for scrollbar */
+::-webkit-scrollbar{
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: gray;
+}
+
+::-webkit-scrollbar-track{
+    background-color: whitesmoke;
+}
