@@ -3,7 +3,7 @@
     height: 100vh;
     overflow: auto;
     display: grid;
-    grid-template-columns: 5em 1fr;
+    grid-template-columns: 7em 1fr;
     grid-template-rows: 2em 1fr;
     grid-template-areas:
         "i1 i1"
@@ -19,18 +19,24 @@
 #selection{
     grid-area: i2;
     background-color: green;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 5px;
 }
 
-#template{
+#blank{
     grid-area: i3;
     background-color: orange;
     position: relative;
     box-sizing: border-box;
-    /* text-align: left; */
     padding: 2px;
+    display: inherit;
+}
+
+.files{
+    display: flex;
     gap: 5px;
-    display: flex; /* Agregado */
-    flex-direction: row; /* Agregado */
 }
 
 #editor{
@@ -79,9 +85,7 @@
 
 
 #myselect{
-    padding: 4px;
     border: 1px transparent;
-    border-radius: 5px;
     outline: none;
     font-size: small;
     font-weight: lighter;
@@ -91,6 +95,10 @@
 /* toggle */
 .changesize{
     width: 100% !important;
+}
+
+.hidden{
+    display: none !important;
 }
 
 
