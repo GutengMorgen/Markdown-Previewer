@@ -68,7 +68,7 @@ export default function App() {
       </div>
       <div id="blank" ref={refBlank}>
         <Files refSetCurrentTextarea={setCurrentTextarea}/>
-        {showCanvas ? <TestingCanvas/> : null}
+        {showCanvas ? <TestingCanvas getRefBlank={refBlank.current}/> : null}
       </div>
     </div>
   )

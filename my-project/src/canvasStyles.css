@@ -1,3 +1,19 @@
+.canvasContainer{
+  background-color: cadetblue;
+  width: 200%;
+  height: 200%;
+  display: grid;
+  gap: 1em;
+  grid-auto-rows: min-content;
+  /* grid-auto-columns: min-content; */
+  grid-template-columns: min-content min-content;
+  padding: 1em;
+}
+
+.dragging {
+  cursor: cell;
+}
+
 #mydiv {
   position: absolute;
   z-index: 5;
@@ -12,4 +28,12 @@
   z-index: 10;
   background-color: #2196F3;
   color: #fff;
+}
+
+.textareasInCanvas {
+  display: block !important;
+  resize: both !important;
+  height: 25em;
+  /* position: absolute; */
+  z-index: 5;
 }
