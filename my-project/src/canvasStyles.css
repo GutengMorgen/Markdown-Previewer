@@ -1,11 +1,10 @@
 .canvasContainer{
-  background-color: cadetblue;
+  background-color: whitesmoke;
   min-width: 150%;
   min-height: 150%;
   display: grid;
   gap: 8em;
   grid-template-columns: repeat(2, min-content);
-  padding: 1em;
 }
 
 .dragging {
@@ -16,5 +15,11 @@
   /* background-color: blueviolet; */
   width: 37em;
   height: 19em;
-  /* padding: 1em; */
+}
+
+.filesOutCanvas{
+  /* background-color: blueviolet; */
+  z-index: 2;
+  width: calc(100vw - 87px);
+  height: calc(100vh - 37px);
 }

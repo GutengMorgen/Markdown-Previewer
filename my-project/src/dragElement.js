@@ -1,4 +1,11 @@
-export default function(element, parent) {
+export default function(element, parent, enableDragging) {
+  if (!enableDragging) {
+    // Deshabilitar el arrastre eliminando los controladores de eventos
+    element.onmousedown = null;
+    element.onmousemove = null;
+    element.onmouseup = null;
+    return;
+  }
   let initialX, initialY;
 
   element.onmousedown = (e) => {
@@ -10,6 +17,7 @@ export default function(element, parent) {
       element.style.top = (element.offsetTop) + "px";
       element.style.left = (element.offsetLeft) + "px";
       element.style.position = 'absolute';
+      element.style.resize = 'both';
     }
 
     element.style.cursor = 'grabbing';

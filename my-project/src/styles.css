@@ -3,7 +3,7 @@
     height: 100vh;
     overflow: auto;
     display: grid;
-    grid-template-columns: 7em 1fr;
+    grid-template-columns: 5em 1fr;
     grid-template-rows: 2em 1fr;
     grid-template-areas:
         "i1 i1"
@@ -13,21 +13,18 @@
 
 #bar{
     grid-area: i1;
-    background-color: brown;
+    background-color: #560d0d;
 }
 
 #selection{
     grid-area: i2;
-    background-color: green;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 5px;
+    background: #e5e5e5b5;
+    padding: 0.4em;
 }
 
 #blank{
     grid-area: i3;
-    background-color: orange;
+    background-color: whitesmoke;
     position: relative;
     box-sizing: border-box;
     padding: .3em;
@@ -46,21 +43,21 @@
     width: 49.8%;
     height: 100%;
     padding: 1em;
-    border-radius: .5em;
     resize: none;
     box-sizing: border-box;
     float: left;
+    border: 2px solid #560d0d;
 }
 
 #preview{
     width: 49.8%;
     height: 100%;
     padding: 1em;
-    border-radius: .5em;
     resize: none;
     box-sizing: border-box;
     float: right;
     cursor: default;
+    border: 2px solid #560d0d;
 }
 
 #mybutton{
@@ -96,6 +93,20 @@
     font-family: system-ui;
 }
 
+.defaultButton{
+    width: 100%;
+    color: #560d0d;
+    border: 2px solid #560d0d;
+    padding: 6px 15px;
+    box-sizing: border-box;
+    background-color: transparent;
+}
+
+.defaultButton:hover{
+    color: #ffffff;
+    background-color: #560d0d;
+}
+
 /* toggle */
 .changesize{
     width: 100% !important;
@@ -112,13 +123,17 @@
 
 /* for scrollbar */
 ::-webkit-scrollbar{
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
 }
 
 ::-webkit-scrollbar-thumb{
-    background-color: gray;
+    background-color: #a67676;
 }
+
+::-webkit-scrollbar-thumb:hover {
+    background: #560d0d; 
+  }
 
 ::-webkit-scrollbar-track{
     background-color: whitesmoke;
