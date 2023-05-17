@@ -1,11 +1,12 @@
 import { useRef } from "react";
 import PropTypes from 'prop-types';
-import protoType from './protoTypex';
-import ScrollToElement from "./ScrollToElement";
+import protoType from '../scripts js/protoTypex';
+import ScrollToElement from "../scripts js/ScrollToElement";
 
 function ChangeStyle(CurrentTextarea, actualFile, ContainerTrigger, SetIsCanvas) {
 
   const value = ContainerTrigger.current.firstElementChild.getAttribute('data-value');
+  
   SetIsCanvas(value === 'canvas');
 
   for(const textarea of actualFile.children){
