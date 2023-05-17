@@ -2,45 +2,101 @@ import { useRef, useEffect } from "react";
 import PropTypes from 'prop-types';
 import './selectwithtable.css';
 
+function DeleteCanvas(RefBlank, SetShowCanvas){
+  const canvas = RefBlank.firstElementChild;
+  for(const files of canvas.childNodes){
+    // console.log(files);
+    files.classList.remove('filesInCanvas');
+    for(const textarea of files.childNodes){
+      textarea.style = '';
+    }
+    canvas.removeChild(files);
+    RefBlank.appendChild(files);
+  }
+  SetShowCanvas(false);
+  //no es necesari, no entiendo porque
+  // RefBlank.removeChild(canvas);
+}
 
-export default function HandleSelectorModes({getRefBlank, refCurrentTextarea, getSetShowCanvas}){
+
+export default function HandleSelectorModes({RefBlank, CurrentTextarea, SetShowCanvas, ShowCanvas}){
   const ContainerOptions = useRef(null), ContainerTrigger = useRef(null);
 
   const ChangeStyle = () => {
     //obtiene el div files que no contiene la clase hidden
-    const currentFile = getRefBlank.current.querySelector('div:not(.hidden)');
+    const currentFile = RefBlank.current.querySelector('div:not(.hidden)');
     const OptionMaster = ContainerTrigger.current.firstChild;
     const value = OptionMaster.dataset.value;
 
-    for (const textarea of currentFile.childNodes){
-      if (value === 'oneView'){
-        if(refCurrentTextarea.parentNode.id === currentFile.id && refCurrentTextarea !== textarea){
-          //problablemente deberia clear una clase hidden solo para textarea
+    if (value === 'oneView'){
+      if(ShowCanvas) DeleteCanvas(RefBlank.current, SetShowCanvas);
+      
+      for(const textarea of currentFile.childNodes){
+        if(CurrentTextarea !== textarea && CurrentTextarea.parentNode.id === currentFile.id)
           textarea.classList.add('hidden');
-        }
+        
+        textarea.classList.add('oneView');
       }
-      else if (value === '2Side'){
+    }
+    
+    else if (value === '2Side'){
+      if(ShowCanvas) DeleteCanvas(RefBlank.current, SetShowCanvas);
+      
+      for(const textarea of currentFile.childNodes){
+        textarea.classList.remove('oneView');
         textarea.classList.remove('hidden');
       }
     }
     
-    if (value === 'canvas'){
-      // console.log(currentFile);
+    else if (value === 'canvas'){
       currentFile.classList.add('hidden');
-      getSetShowCanvas(true);
+      SetShowCanvas(true);
     }
+    
+
+    /*for (const textarea of currentFile.childNodes){
+      if (value === 'oneView'){
+        if(ShowCanvas)
+          DeleteCanvas(RefBlank.current, SetShowCanvas);
+        
+        if(CurrentTextarea.parentNode.id === currentFile.id && CurrentTextarea !== textarea){
+          textarea.classList.add('hidden');
+        }
+        textarea.classList.add('oneView');
+      }
+      
+      else if (value === '2Side'){
+        if(ShowCanvas)
+          DeleteCanvas(RefBlank.current, SetShowCanvas);
+        
+        textarea.classList.remove('hidden');
+        textarea.classList.remove('oneView');
+      }
+    }*/
+    
+
+    /*pasos para deshabilitar el canvas*/
+    //1. obtener el div canvas
+    //obtener la referencia de blank
+    //recorrer todos los elementos del div canvas
+    //quitarles la clase filesInCanvas
+    //usar removeChild
+    //usar blank.appendChild
+
+
+    //darles la clase hidden
+
+    /**/
   }
 
-  const handleClickOptions = (event) => {
-    const currentOption = event.target;
+  const handleClickOptions = (e) => {
+    const currentOption = e.target;
     const OptionMaster = ContainerTrigger.current.firstChild;
     OptionMaster.textContent = currentOption.textContent;
     OptionMaster.dataset.value = currentOption.dataset.value;
 
     const selectedElement = ContainerOptions.current.querySelector('.selected');
-    if (selectedElement) {
-      selectedElement.classList.remove('selected');
-    }
+    if (selectedElement) selectedElement.classList.remove('selected');
 
     currentOption.classList.add('selected');
     ContainerOptions.current.classList.remove('show');
@@ -53,14 +109,13 @@ export default function HandleSelectorModes({getRefBlank, refCurrentTextarea, ge
 
   //agrega evento click para el documento
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (!ContainerTrigger.current.contains(event.target) && !ContainerOptions.current.contains(event.target))
+    document.onclick = (e) => {
+      if (!ContainerTrigger.current.contains(e.target) && !ContainerOptions.current.contains(e.target))
         ContainerOptions.current.classList.remove('show');
     }
-    document.addEventListener('click', handleClickOutside);
   
     return () => {
-      document.removeEventListener('click', handleClickOutside);
+      document.onclick = null;
     };
   }, []);
 
@@ -73,9 +128,9 @@ export default function HandleSelectorModes({getRefBlank, refCurrentTextarea, ge
         <div id="container_options">
           <table id="mytable">
             <tbody>
-              <tr><th data-value="oneView" onClick={(event) => handleClickOptions(event)}>One view</th></tr>
-              <tr><th data-value="2Side" onClick={(event) => handleClickOptions(event)}>Side by Side</th></tr>
-              <tr><th data-value="canvas" onClick={(event) => handleClickOptions(event)}>Canvas</th></tr>
+              <tr><th data-value="oneView" onClick={(e) => handleClickOptions(e)}>One view</th></tr>
+              <tr><th data-value="2Side" onClick={(e) => handleClickOptions(e)}>Side by Side</th></tr>
+              <tr><th data-value="canvas" onClick={(e) => handleClickOptions(e)}>Canvas</th></tr>
             </tbody>
           </table>
         </div>
@@ -85,7 +140,8 @@ export default function HandleSelectorModes({getRefBlank, refCurrentTextarea, ge
 }
 
 HandleSelectorModes.propTypes = {
-  getRefBlank: PropTypes.object,
-  refCurrentTextarea: PropTypes.object,
-  getSetShowCanvas: PropTypes.func
+  RefBlank: PropTypes.object,
+  CurrentTextarea: PropTypes.object,
+  ShowCanvas: PropTypes.bool,
+  SetShowCanvas: PropTypes.func
 };

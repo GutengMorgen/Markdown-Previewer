@@ -30,35 +30,37 @@
     background-color: orange;
     position: relative;
     box-sizing: border-box;
-    padding: 2px;
-    display: inherit;
+    padding: .3em;
     overflow: auto;
-    /* max-width: calc(100vw - 4em); */
 }
 
 .files{
-    display: flex;
-    gap: 5px;
+    display: block;
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    width: 100%;
+    height: 100%;
 }
 
 #editor{
-    /* intentar height: 100% */
-    flex: 1;
-    width: 50%;
+    width: 49.8%;
+    height: 100%;
     padding: 1em;
     border-radius: .5em;
-    resize:none;
+    resize: none;
     box-sizing: border-box;
+    float: left;
 }
 
 #preview{
-    /* intentar height: 100% */
-    flex: 1;
-    width: 50%;
+    width: 49.8%;
+    height: 100%;
     padding: 1em;
     border-radius: .5em;
-    resize:none;
+    resize: none;
     box-sizing: border-box;
+    float: right;
+    cursor: default;
 }
 
 #mybutton{
@@ -99,10 +101,14 @@
     width: 100% !important;
 }
 
+/* modificar el width:100% del segundo textarea */
 .hidden{
     display: none !important;
 }
 
+.oneView{
+    width: 100% !important;
+}
 
 /* for scrollbar */
 ::-webkit-scrollbar{
