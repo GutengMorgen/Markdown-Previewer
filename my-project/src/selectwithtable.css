@@ -1,0 +1,110 @@
+.selector_wrapper2{
+    position: relative;
+    user-select: none;
+    cursor: pointer;
+    width: 0;
+    font-size: 12px;
+    float: right;
+    right: 9em;
+    top: 5px;
+    z-index: 3;
+}
+
+
+/* div que contendra los otros div */
+.selector_wrapper
+{
+    width: 0;
+    position: relative;
+    user-select: none;
+    cursor: pointer;
+}
+
+/* div predeterminado */
+#select_trigger
+{
+    width: 8em;
+    display: block;
+    background-color: whitesmoke;
+    color: #545759;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 2px;
+    font-family: system-ui;
+    font-weight: 400;
+    font-size: 10px;
+    padding: 2px 5px;
+}
+
+/* div que se ocultara */
+#select_options
+{
+    display: none;
+    position: absolute;
+    top: 110%;
+    border-radius: 2px;
+    padding: 4px 0;
+    background-color: white;
+    border: 1px solid rgb(204, 204, 204);
+}
+
+/* div que establecera la altura maxima y activara el scrollbar */
+#container_options
+{
+    width: 90px;
+    max-height: 160px;
+    overflow-y: auto;
+}
+
+#trigger::after
+{
+    content: '▼';
+    display: inline;
+    float: right;
+    font-size: 9px;
+}
+
+/* from handleClick() function */
+.show
+{
+    display: block !important;
+}
+
+.selected
+{
+    background-color: #007bff !important;
+    color: white;
+}
+
+/* modifica el scrool-bar */
+#container_options::-webkit-scrollbar
+{
+    width: 3px;
+}
+
+#container_options::-webkit-scrollbar-thumb {
+  background: #c2c2c2; 
+}
+
+/* styles for the table */
+#mytable {
+    width: -webkit-fill-available;
+    text-align: center;
+    font-family: system-ui;
+    font-size: 10px;
+    font-weight: 400;
+    color: #545759;
+}
+
+th, td {
+    border: 1px solid whitesmoke;
+    padding: 2px;
+    border-radius: 3px;
+}
+
+td{
+    font-size: 8px;
+}
+
+th:hover, td:hover{
+    background-color: whitesmoke;
+}

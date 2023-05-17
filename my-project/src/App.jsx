@@ -1,11 +1,11 @@
 import { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-// import './App.css'
-import './styles.css'
-
+// import './App.css';
+import './styles.css';
 //import js files
-// import * as selector from './Select';
 import Testingselect from './TestingSelect';
+import SelectorForModes from './SelectorForModes';
+import TestingCanvas from './canvas';
 
 
 function handleSelectTextarea (e, setCurrentTextarea) {
@@ -25,49 +25,11 @@ Files.propTypes = {
   refSetCurrentTextarea: PropTypes.func
 }
 
-function HandleSelectorModes({getRefBlank, refCurrentTextarea}){
-  const refSelect = useRef(null);
-
-  const handleChange = () => {
-    //obtiene el div files que no contiene la clase hidden
-    const currentFile = getRefBlank.current.querySelector('div:not(.hidden)');
-    const value = refSelect.current.value;
-
-    for (const textarea of currentFile.childNodes){
-
-      if (value === 'one_view'){
-        if(refCurrentTextarea.parentNode.id === currentFile.id && refCurrentTextarea !== textarea){
-          //problablemente deberia clear una clase hidden solo para textarea
-          textarea.classList.add('hidden');
-        }
-      }
-      else if (value === 'side_by_side'){
-        textarea.classList.remove('hidden');
-      }
-    }
-  }
-
-
-  return (
-    <select id="modes" ref={refSelect} onChange={handleChange}>
-      <option value="default" defaultValue>select a mode</option>
-      <option value="one_view">one view</option>
-      <option value="side_by_side">side by side</option>
-      <option value="canvas" disabled>canvas</option>
-    </select>
-  )
-}
-
-HandleSelectorModes.propTypes = {
-  getRefBlank: PropTypes.object,
-  refCurrentTextarea: PropTypes.object
-};
-
-
 export default function App() {
   const refBlank = useRef(null);
   const [count, setCount] = useState(1);
   const [currentTextarea, setCurrentTextarea] = useState(null);
+  const [showCanvas, setShowCanvas] = useState(false);
 
   //clona el div file
   const handleClickCreator = () => {
@@ -96,7 +58,7 @@ export default function App() {
   return (
     <div className='Container'>
       <div id="bar">
-        <HandleSelectorModes getRefBlank={refBlank} refCurrentTextarea={currentTextarea}/>
+        <SelectorForModes getRefBlank={refBlank} refCurrentTextarea={currentTextarea} getSetShowCanvas={setShowCanvas}/>
       </div>
       <div id="selection">
         <button type='button' onClick={handleClickCreator}>+</button>
@@ -106,6 +68,7 @@ export default function App() {
       </div>
       <div id="blank" ref={refBlank}>
         <Files refSetCurrentTextarea={setCurrentTextarea}/>
+        {showCanvas ? <TestingCanvas getRefBlank={refBlank.current}/> : null}
       </div>
     </div>
   )
