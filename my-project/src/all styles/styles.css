@@ -47,18 +47,34 @@
     box-sizing: border-box;
     float: left;
     border: 2px solid #560d0d;
+    color: #08020e;
+    overflow: auto;
 }
 
 #preview{
     width: 49.8%;
     height: 100%;
-    padding: 1em;
     resize: none;
     box-sizing: border-box;
     float: right;
     cursor: default;
+
+    /* more styles */
+    background-color: white;
     border: 2px solid #560d0d;
+    color: #08020e;
+    text-align: left;
+    font-family: monospace;
+    font-size: 13px;
+    padding: 0px 13px;
+    overflow: auto;
 }
+
+#testingDiv{
+    width: 262px;
+    height: 267.2px;
+}
+
 
 #mybutton{
     position: relative;
@@ -128,7 +144,7 @@
 }
 
 ::-webkit-scrollbar-thumb{
-    background-color: #a67676;
+    background-color: #9a4545;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -137,4 +153,23 @@
 
 ::-webkit-scrollbar-track{
     background-color: whitesmoke;
+}
+
+#preview > pre {
+    background-color: #f9f9f9;
+    border: 1px solid #560d0d;
+    padding: 8px;
+}
+
+#preview > a {
+    color: #801212;
+    text-decoration: none;
+}
+
+#preview > table th {
+    border: 1px solid #560d0d;
+}
+
+#preview > table td {
+    border: 1px solid #560d0d;
 }

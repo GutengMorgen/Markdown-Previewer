@@ -1,12 +1,12 @@
 import { useRef, useState } from 'react';
-import './styles.css';
-import './selectwithtable.css';
-import './canvasStyles.css';
+import './all styles/styles.css';
+import './all styles/selectwithtable.css';
+import './all styles/canvasStyles.css';
 
-import SelectFiles from './SelectFiles';
-import SelectModes from './SelectModes';
-import CanvasJSX from './canvas';
-import CreateButton from './CreateButton';
+import SelectFiles from './scripts jsx/SelectFiles';
+import SelectModes from './scripts jsx/SelectModes';
+import CanvasJSX from './scripts jsx/canvas';
+import CreateButton from './scripts jsx/CreateButton';
 
 export default function App() {
   const refBlank = useRef(null);
@@ -20,9 +20,9 @@ export default function App() {
         <SelectModes RefBlank={refBlank} CurrentTextarea={currentTextarea} SetIsCanvas={setIsCanvas}/>
       </div>
       <div id="selection">
-        <p><CreateButton refBlank={refBlank} SetCurrentTextarea={setCurrentTextarea} IsCanvas={isCanvas} SetIsCreate={setIsCreate}/></p>
-        <p><button type='button' className='defaultButton'>Save</button></p>
-        <p><button type='button' className='defaultButton'>Load</button></p>
+        <CreateButton refBlank={refBlank} SetCurrentTextarea={setCurrentTextarea} IsCanvas={isCanvas} SetIsCreate={setIsCreate}/>
+        {/* <p><button type='button' className='defaultButton'>Save</button></p>
+        <p><button type='button' className='defaultButton'>Load</button></p> */}
         <SelectFiles RefBlank={refBlank} IsCanvas={isCanvas} IsCreate={isCreate} SetIsCreate={setIsCreate}/>
       </div>
       <div id="blank" ref={refBlank}>
