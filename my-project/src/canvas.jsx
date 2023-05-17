@@ -1,67 +1,71 @@
-import { useEffect, useRef } from "react";
-import './canvasStyles.css';
+import { useEffect, useRef, useCallback } from "react";
 import PropTypes from 'prop-types';
 import dragElement from "./dragElement";
 
-//se esta ejecutando varias veces
-const GetData = (getRefBlank, refContainer) => {
+function GetData(refCanvas, RefBlank ,enableCanvas) {
+  for(const file of refCanvas.children) {
+    for(const textarea of file.children) {
 
-  useEffect(() => {
-    const parentNode = getRefBlank;
-    const actualNode = refContainer.current;
-
-    //crear un script para poder manejar la data del selector de modos y selector de files
-    for (const file of parentNode.children) {
-      if (file.id.startsWith('file')) {
-
-        parentNode.removeChild(file);
-
-        for (const textarea of file.children) {
-
-          textarea.style = 'width: 22em; height: 22em; resize: both; z-index: 1;';
-          dragElement(textarea, null);
-        }
-        file.classList.remove('hidden');
+      if(enableCanvas){
+        RefBlank.style.overflow = 'auto';
+        file.classList.remove('filesOutCanvas');
         file.classList.add('filesInCanvas');
-        actualNode.appendChild(file);
+        
+        textarea.classList.remove('hidden');
+        textarea.classList.remove('oneView');
+        textarea.style = 'width: 22em; height: 22em';
       }
+      else{
+        RefBlank.style.overflow = 'hidden';
+
+        file.classList.remove('filesInCanvas');
+        file.classList.add('filesOutCanvas');
+
+        textarea.style = '';
+      }
+      dragElement(textarea, null, enableCanvas);
     }
-  }, [getRefBlank, refContainer]);
-}
-
-//intentar usar offsetWidth y offsetHeight
-function handleClick(e, refMyDiv){
-  const divRect = refMyDiv.getBoundingClientRect();
-  const computedStyle = getComputedStyle(refMyDiv);
-  const umbral = 200; // ponerlos en porcentajes
-  const calc = divRect.left + refMyDiv.clientWidth - umbral;
-  const calcbottom = divRect.top + refMyDiv.clientHeight - umbral;
-
-  if(e.clientX >= calc){
-    const currentWidth = parseInt(computedStyle.width); // Obtener el valor numérico actual de la anchura
-    refMyDiv.style.width = (currentWidth + umbral) + 'px'; // Establecer la nueva anchura con la unidad 'px'
-  }
-  else if(e.clientY >= calcbottom){
-    const currentHeight = parseInt(computedStyle.height);
-    refMyDiv.style.height = (currentHeight + umbral) + 'px';
   }
 }
 
-export default function TestingCanvas({getRefBlank}){
-  const refContainer = useRef(null);
-  GetData(getRefBlank, refContainer);
+export default function Canvas({RefBlank, SetCurrentTextarea, IsCanvas}){
+  const refCanvas = useRef(null);
+
+  const reSizeElement = useCallback((e, refContainer) => {
+    const divRect = refContainer.current.getBoundingClientRect();
+    const umbral = 200;
+    const calc = divRect.left + refContainer.current.clientWidth - umbral;
+    const calcbottom = divRect.top + refContainer.current.clientHeight - umbral;
+
+    if (e.clientX >= calc) {
+      const currentWidth = refContainer.current.offsetWidth;
+      refContainer.current.style.width = (currentWidth + umbral) + 'px';
+    } else if (e.clientY >= calcbottom) {
+      const currentHeight = refContainer.current.offsetHeight;
+      refContainer.current.style.height = (currentHeight + umbral) + 'px';
+    }
+  }, []);
+
 
   useEffect(() => {
-    dragElement(refContainer.current, getRefBlank);
-  }, [getRefBlank]);
+
+    GetData(refCanvas.current, RefBlank.current, IsCanvas);
+    dragElement(refCanvas.current, RefBlank.current, IsCanvas);
+    
+  }, [RefBlank, IsCanvas]);
 
   return (
-    <div id="canvas" className="canvasContainer" ref={refContainer} 
-    onClick={(e) => handleClick(e, refContainer.current)}
-    />
+    <div id="canvas" className="canvasContainer" ref={refCanvas} onClick={(e) => reSizeElement(e, refCanvas)}>
+      <div className='filesOutCanvas' id="file0">
+        <textarea id="editor" placeholder='editor 0' onClick={(e) => {SetCurrentTextarea(e.target)}}></textarea>
+        <textarea id="preview" placeholder='preview 0' onClick={(e) => {SetCurrentTextarea(e.target)}} readOnly></textarea>
+      </div>
+    </div>
   )
 }
 
-TestingCanvas.propTypes = {
-  getRefBlank: PropTypes.object
+Canvas.propTypes = {
+  RefBlank: PropTypes.object,
+  SetCurrentTextarea: PropTypes.func,
+  IsCanvas: PropTypes.bool
 }

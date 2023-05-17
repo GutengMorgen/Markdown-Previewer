@@ -3,9 +3,9 @@
     user-select: none;
     cursor: pointer;
     width: 0;
-    font-size: 12px;
+    font-size: 13px;
     float: right;
-    right: 9em;
+    right: 10em;
     top: 5px;
     z-index: 3;
 }
@@ -14,7 +14,6 @@
 /* div que contendra los otros div */
 .selector_wrapper
 {
-    width: 0;
     position: relative;
     user-select: none;
     cursor: pointer;
@@ -25,14 +24,8 @@
 {
     width: 8em;
     display: block;
-    background-color: whitesmoke;
-    color: #545759;
-    border: 1px solid rgb(204, 204, 204);
-    border-radius: 2px;
-    font-family: system-ui;
-    font-weight: 400;
-    font-size: 10px;
-    padding: 2px 5px;
+    color: #ffffff;
+    border: 1px solid rgb(200 200 200);
 }
 
 /* div que se ocultara */
@@ -50,7 +43,7 @@
 /* div que establecera la altura maxima y activara el scrollbar */
 #container_options
 {
-    width: 90px;
+    width: 104px;
     max-height: 160px;
     overflow-y: auto;
 }
@@ -60,7 +53,8 @@
     content: '▼';
     display: inline;
     float: right;
-    font-size: 9px;
+    font-size: 13px;
+    padding-right: 5px;
 }
 
 /* from handleClick() function */
@@ -71,7 +65,7 @@
 
 .selected
 {
-    background-color: #007bff !important;
+    background-color: #560d0d !important;
     color: white;
 }
 
@@ -82,29 +76,52 @@
 }
 
 #container_options::-webkit-scrollbar-thumb {
-  background: #c2c2c2; 
+  background: #a67676;
 }
 
 /* styles for the table */
 #mytable {
     width: -webkit-fill-available;
     text-align: center;
-    font-family: system-ui;
-    font-size: 10px;
-    font-weight: 400;
+    font-size: 12px;
     color: #545759;
 }
 
 th, td {
-    border: 1px solid whitesmoke;
-    padding: 2px;
-    border-radius: 3px;
+    padding: 4px;
 }
 
 td{
-    font-size: 8px;
+    font-size: 11px;
 }
 
 th:hover, td:hover{
     background-color: whitesmoke;
+}
+
+#select_trigger2{
+    display: block;
+    color: #560d0d;
+    border: 2px solid #560d0d;
+    padding: 2px 0;
+    font-size: 13px;
+}
+
+#select_options2{
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 105%;
+    padding: 4px 0;
+    background-color: white;
+    border: 1px solid rgb(204, 204, 204);
+    z-index: 10;
+}
+
+#trigger2::after{
+    content: '▶';
+    float: right;
+    font-size: 12px;
+    padding-right: 3px;
+    padding-top: 1px;
 }
